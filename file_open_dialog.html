@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <base target="_top">
+    <script>
+        function preventFormSubmit() {
+            var forms = document.querySelectorAll("form")
+            for (var i = 0; i < forms.length; i++) {
+                forms[i].addEventListener("submit", function (event) {
+                    event.preventDefault()
+                });
+            }
+        }
+        window.addEventListener("load", preventFormSubmit)
+
+        function countItem(form) {
+            google.script.run.recordData(form)
+        }
+    </script>
+</head>
+
+<body>
+    <form id="itemForm" onsubmit="countItem(this)" enctype="multipart/form-data">
+        <input type="file" name="htmlFile">
+        <button type="submit">読み込み</button>
+    </form>
+</body>
+
+</html>
