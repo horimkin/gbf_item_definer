@@ -58,11 +58,25 @@ function getItemTable($) {
             var imgTitle = $(this).children().eq(0).children().first().attr("title")
             var itemName = $(this).children().eq(1).text()
 
-            data[i].push([imgTitle, itemName])
+            data[i].push([convertImgTitle(imgTitle), itemName])
         })
     })
     
     return data
+}
+
+function convertImgTitle(title) {
+    // 不要な文字列を除去する(初出の数値.jpgへ変換)
+    // パターン例
+    // recovery1.jpg recovery_2003.jpg   lowson2001.jpg
+    // charaLB_1.jpg skillplus_10001.jpg recycling1.jpg
+    // 20241_2.jpg   1313_.jpg           10069_new.jpg
+    // k20611.jpg    k_20231.jpg
+    if (title) {
+        return title.replace(/(^\D*)(\d+)([_]*\w*)/, "$2")
+    } else {
+        return title
+    }
 }
 
 function mergeData(list, items) {
